@@ -1,0 +1,19 @@
+{
+  "name": "customerorderservice",
+  "version": "1.0.0",
+  "main": "app.js",
+  "type": "module",
+ "scripts": {
+    "dev": "node app.js"
+  },
+  "author": "chamith",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.0.0",
+    "express": "^5.1.0",
+    "express-validator": "^7.2.1",
+    "mongoose": "^8.16.1"
+  }
+}
