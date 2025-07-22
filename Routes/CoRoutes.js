@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  approvedCustomerOrder,
   createCustomerOrder,
   deleteCustomerOrder,
   getAllCustomerOrders,
@@ -27,5 +28,8 @@ CoRouter.delete("/delete/:id", deleteCustomerOrder);
 
 //update CO
 CoRouter.put("/update/:id", updateCustomerOrder);
+
+//approved order
+CoRouter.put("/approve/:id", approvedCustomerOrder);
 
 export default CoRouter;

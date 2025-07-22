@@ -134,7 +134,7 @@ export const updateCustomerOrder = async (req, res, next) => {
     }
 
     let orderTotalValue = 0;
-      let enrichedItems = [];
+    let enrichedItems = [];
 
     // Validate and enrich each product
     for (const item of items) {
@@ -149,7 +149,6 @@ export const updateCustomerOrder = async (req, res, next) => {
       }
 
       // Prepare totals and item list
-      
 
       const itemTotalValue = product.sellingPrice * item.orderQty;
       orderTotalValue += itemTotalValue;
@@ -194,3 +193,24 @@ export const updateCustomerOrder = async (req, res, next) => {
     next(error);
   }
 };
+
+// customer order approved
+
+export const approvedCustomerOrder = async (req, res, next) => {
+  
+  try {
+    const {id }= req.params;
+    const order = await CustomerOrder.findById(id);
+    if (!order ){
+      return res.status(404).json({ message: "Order not found" });
+    }
+    order.items = order.items.map((item) => ({
+      ...item,
+      status: "approved",
+    }));
+    await order.save();
+    res.status(200).json({ message: "Order approved successfully" });
+  } catch (error) {
+    next(error);
+  }
+}
