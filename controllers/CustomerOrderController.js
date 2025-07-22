@@ -56,6 +56,7 @@ export const createCustomerOrder = async (req, res, next) => {
       paymentStatus: paymentStatus || "Cash", // optional field
       remark,
       orderDate: new Date(),
+      status: "pending",
     });
 
     await newOrder.save();
@@ -176,7 +177,9 @@ export const updateCustomerOrder = async (req, res, next) => {
         orderTotalValue,
         paymentStatus: paymentStatus || "Cash",
         remark,
-        orderDate: new Date(), // optional: update timestamp
+        orderDate: new Date(),
+        status: "pending",
+         
       },
       { new: true }
     );
@@ -197,20 +200,20 @@ export const updateCustomerOrder = async (req, res, next) => {
 // customer order approved
 
 export const approvedCustomerOrder = async (req, res, next) => {
-  
   try {
-    const {id }= req.params;
+    const { id } = req.params;
     const order = await CustomerOrder.findById(id);
-    if (!order ){
+    if (!order) {
       return res.status(404).json({ message: "Order not found" });
     }
     order.items = order.items.map((item) => ({
       ...item,
       status: "approved",
     }));
+    order.status = "approved"; // ✅ Top-level status
     await order.save();
     res.status(200).json({ message: "Order approved successfully" });
   } catch (error) {
     next(error);
   }
-}
+};

@@ -39,6 +39,11 @@ const customerOrderSchema = new mongoose.Schema(
     },
     remark: { type: String },
     orderDate: { type: Date, default: Date.now },
+    status: {
+      type: String,
+      enum: ["pending", "approved"],
+      default: "pending",
+    },
   },
   { timestamps: true }
 );
