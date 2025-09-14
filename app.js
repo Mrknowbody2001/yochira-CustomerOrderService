@@ -7,6 +7,8 @@ import CoRouter from "./Routes/CoRoutes.js";
 import CustomerRouter from "./Routes/CustomerRoute.js";
 import ProductRouter from "./Routes/ProductRoute.js";
 
+dotenv.config();
+
 const app = express();
 app.use(express.json());
 
@@ -17,8 +19,6 @@ app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ message: "Something went wrong", error: err.message });
 });
-
-dotenv.config();
 
 app.use("/api/Customer-Order", CoRouter);
 app.use("/api/Customers", CustomerRouter);

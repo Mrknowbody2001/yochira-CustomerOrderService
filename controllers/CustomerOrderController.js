@@ -93,7 +93,7 @@ export const getAllCustomerOrders = async (req, res, next) => {
 //get one CO
 export const getOneCustomerOrder = async (req, res, next) => {
   try {
-    const { id } = req.params;
+    const { id } = req.params; // fix to params
     const order = await CustomerOrder.findById(id);
     if (!order) {
       return res.status(404).json({ message: "Order not found" });
@@ -179,7 +179,6 @@ export const updateCustomerOrder = async (req, res, next) => {
         remark,
         orderDate: new Date(),
         status: "pending",
-         
       },
       { new: true }
     );
