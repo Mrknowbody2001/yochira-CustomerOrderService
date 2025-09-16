@@ -216,3 +216,29 @@ export const approvedCustomerOrder = async (req, res, next) => {
     next(error);
   }
 };
+
+//!get filtered CO list search bar
+export const getFilteredCOList = async (req, res, next) => {
+  try {
+    let { code = "", name = "" } = req.query;
+    console.log(req.query);
+    code = code.trim();
+    name = name.trim();
+
+    const filter = {};
+    if (code) {
+      filter.coNo = { $regex: code, $options: "i" };
+    }
+    if (name) {
+      filter.customerName = { $regex: name, $options: "i" };
+    }
+    console.log(filter);
+    const customerOrders = await CustomerOrder.find(filter).sort({
+      createdAt: -1,
+    });
+    res.status(200).json({ customerOrders });
+  } catch (error) {
+    console.error("Error fetching filtered CO list:", error.message);
+    next(error);
+  }
+};

@@ -4,6 +4,7 @@ import {
   createCustomerOrder,
   deleteCustomerOrder,
   getAllCustomerOrders,
+  getFilteredCOList,
   getNextCustomerOrderNumber,
   getOneCustomerOrder,
   updateCustomerOrder,
@@ -19,6 +20,9 @@ CoRouter.get("/new-co-number", getNextCustomerOrderNumber);
 
 //get all CO list
 CoRouter.get("/co-list", getAllCustomerOrders);
+
+//!search bar
+CoRouter.get("/search-co-list", getFilteredCOList);
 
 //get one CO
 CoRouter.get("/:id", getOneCustomerOrder);
